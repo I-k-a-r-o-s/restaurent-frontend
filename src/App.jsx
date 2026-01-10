@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router";
+import { Route, Routes, useLocation } from "react-router";
 import Home from "./pages/Home";
 import BookTable from "./pages/BookTable";
 import Cart from "./pages/Cart";
@@ -10,10 +10,13 @@ import MyBookings from "./pages/MyBookings";
 import MyOrders from "./pages/MyOrders";
 import Signup from "./pages/Signup";
 import MenuDetails from "./pages/MenuDetails.jsx";
+import Navbar from "./components/Navbar.jsx";
 
 const App = () => {
+  const adminPath = useLocation().pathname.includes("admin");
   return (
     <div>
+      {!adminPath && <Navbar />}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/book-table" element={<BookTable />} />
