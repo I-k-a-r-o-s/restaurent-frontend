@@ -29,8 +29,8 @@ const ThemeSelector = () => {
         tabIndex={-1}
         className="dropdown-content bg-base-300 rounded-box z-1 w-52 p-2 shadow-2xl"
       >
-        {themeList.map((theme) => (
-          <li>
+        {themeList.map((theme, key) => (
+          <li key={key}>
             <input
               type="radio"
               name="theme-dropdown"
