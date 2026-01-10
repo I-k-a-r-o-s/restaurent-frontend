@@ -5,6 +5,7 @@ import logo from "../assets/logo.png";
 import { MdLogout, MdOutlineMenu, MdOutlineShoppingCart } from "react-icons/md";
 import { FaRegCalendarAlt, FaRegUserCircle } from "react-icons/fa";
 import { LuPackage } from "react-icons/lu";
+import ThemeSelector from "./ThemeSelector";
 
 const Navbar = () => {
   const { navigate, user, setUser } = useContext(AppContext);
@@ -71,6 +72,7 @@ const Navbar = () => {
         </div>
 
         <div className="navbar-end">
+          <ThemeSelector/>
           {/**Cart icon */}
           <div className="indicator mx-5">
             <button className="btn btn-ghost">
