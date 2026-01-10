@@ -85,7 +85,7 @@ const Navbar = () => {
           <div>
             {user ? (
               <div className="dropdown dropdown-end">
-                {/**Avatar */}
+                {/**Avatar shown when logged in*/}
                 <div
                   tabIndex={0}
                   role="button"
@@ -135,7 +135,7 @@ const Navbar = () => {
                 className="btn btn-primary"
                 onClick={() => navigate("/login")}
               >
-                Login{/**Login Button */}
+                Login{/**Login button to show when not logged in*/}
               </button>
             )}
           </div>
