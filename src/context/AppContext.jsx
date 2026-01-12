@@ -20,7 +20,11 @@ const AppContextProvider = ({ children }) => {
         setUser(data.user);
       }
     } catch (error) {
-      console.log(error);
+      if (error.response?.status === 401) {
+        setUser(null);
+      } else {
+        console.log("User not authenticated:", error);
+      }
     }
   };
 
