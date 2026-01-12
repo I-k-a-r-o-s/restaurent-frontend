@@ -1,18 +1,37 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import toast from "react-hot-toast";
 import { MdLockOutline, MdOutlineMail } from "react-icons/md";
 import { Link } from "react-router";
+import { AppContext } from "../context/AppContext";
 
 const Login = () => {
+
+  const { axios, loading, setLoading,navigate,setUser } = useContext(AppContext);
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    toast.success("Logged in Successfully");
-    console.log(formData);
+    try {
+      setLoading(true);
+      const { data } = await axios.post("/api/auth/login", formData);
+      if (data.success) {
+        setUser(true)
+        toast.success(data.message);
+        navigate("/")
+      } else {
+        toast.error(data.message);
+      }
+      console.log(formData);
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
+    finally{
+      setLoading(false)
+    }
   };
 
   const handleChange = (e) => {
@@ -64,7 +83,7 @@ const Login = () => {
             />
           </div>
           <button type="submit" className="btn btn-primary mt-4">
-            Login
+            {loading?"Loading...":"Login"}
           </button>
           <p className="label pt-2">
             Don't have an account?
