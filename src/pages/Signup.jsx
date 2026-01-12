@@ -1,20 +1,37 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import toast from "react-hot-toast";
 import { FaRegUser } from "react-icons/fa";
 import { MdLockOutline, MdOutlineMail } from "react-icons/md";
 import { Link } from "react-router";
+import { AppContext } from "../context/AppContext";
 
 const Signup = () => {
+  const { axios, loading, setLoading,navigate } = useContext(AppContext);
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     password: "",
   });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    toast.success("Registered Successfully");
-    console.log(formData);
+    try {
+      setLoading(true);
+      const { data } = await axios.post("/api/auth/register", formData);
+      if (data.success) {
+        toast.success(data.message);
+        navigate("/login")
+      } else {
+        toast.error(data.message);
+      }
+      console.log(formData);
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
+    finally{
+      setLoading(false)
+    }
   };
 
   const handleChange = (e) => {
@@ -84,7 +101,7 @@ const Signup = () => {
             />
           </div>
           <button type="submit" className="btn btn-primary mt-4">
-            Create Account
+            {loading?"Loading...":"Register"}
           </button>
           <p className="label pt-2">
             Already have an account?
