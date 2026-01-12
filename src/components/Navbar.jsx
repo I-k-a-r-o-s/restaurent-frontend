@@ -6,9 +6,24 @@ import { MdLogout, MdOutlineMenu, MdOutlineShoppingCart } from "react-icons/md";
 import { FaRegCalendarAlt, FaRegUserCircle } from "react-icons/fa";
 import { LuPackage } from "react-icons/lu";
 import ThemeSelector from "./ThemeSelector";
+import toast from "react-hot-toast";
 
 const Navbar = () => {
-  const { navigate, user, setUser } = useContext(AppContext);
+  const { navigate, user, setUser, axios } = useContext(AppContext);
+
+  const logOut = async () => {
+    try {
+      const { data } = await axios.post("/api/auth/logout");
+      if (data.success) {
+        setUser(null);
+        toast.success(data.message);
+        navigate("/");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <nav>
       <div className="navbar bg-base-100 shadow-sm">
@@ -72,7 +87,7 @@ const Navbar = () => {
         </div>
 
         <div className="navbar-end">
-          <ThemeSelector/>
+          <ThemeSelector />
           {/**Cart icon */}
           <div className="indicator mx-5">
             <button className="btn btn-ghost">
@@ -123,7 +138,7 @@ const Navbar = () => {
                     </li>
                   </Link>
                   <li>
-                    <button className="justify-between">
+                    <button className="justify-between" onClick={logOut}>
                       Logout
                       <span className="badge ">
                         <MdLogout size={20} />
