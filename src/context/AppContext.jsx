@@ -13,6 +13,21 @@ const AppContextProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState(false);
 
+  const isAuth = async () => {
+    try {
+      const { data } = await axios.get("/api/auth/is-auth");
+      if (data.success) {
+        setUser(data.user);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    isAuth();
+  }, []);
+
   const value = { navigate, loading, setLoading, user, setUser, axios };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
