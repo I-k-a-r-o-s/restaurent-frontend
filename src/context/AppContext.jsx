@@ -7,7 +7,7 @@ const AppContextProvider = ({ children }) => {
   const navigate = useNavigate();
 
   const [loading, setLoading] = useState(false);
-  const [user, setUser] = useState(true);
+  const [user, setUser] = useState(false);
   const value = { navigate, loading, setLoading, user, setUser };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
