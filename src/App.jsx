@@ -12,6 +12,7 @@ import Signup from "./pages/Signup";
 import MenuDetails from "./pages/MenuDetails.jsx";
 import Navbar from "./components/Navbar.jsx";
 import { Toaster } from "react-hot-toast";
+import Footer from "./components/Footer.jsx";
 
 const App = () => {
   const adminPath = useLocation().pathname.includes("admin");
@@ -32,6 +33,7 @@ const App = () => {
         <Route path="/my-orders" element={<MyOrders />} />
         <Route path="/signup" element={<Signup />} />
       </Routes>
+      {!adminPath && <Footer />}
     </div>
   );
 };
