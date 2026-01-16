@@ -145,7 +145,7 @@ const AdminLayout = () => {
                   <li className="my-5">
                     <button
                       className={`is-drawer-close:tooltip is-drawer-close:tooltip-right ${
-                        active ? "bg-gray-400 border-r-4" : ""
+                        active ? "bg-gray-400" : ""
                       }`}
                       data-tip={menuItem.name}
                     >
