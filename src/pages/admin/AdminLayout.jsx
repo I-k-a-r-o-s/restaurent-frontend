@@ -1,4 +1,4 @@
-import { useContext} from "react";
+import { useContext } from "react";
 import { AppContext } from "../../context/AppContext";
 import {
   LuBook,
@@ -11,8 +11,8 @@ import {
 } from "react-icons/lu";
 import { Link, Outlet, useLocation } from "react-router";
 import toast from "react-hot-toast";
-import { MdOutlineMenu } from "react-icons/md";
 import { FaRegCircleUser } from "react-icons/fa6";
+import { GoSidebarCollapse } from "react-icons/go";
 
 const AdminLayout = () => {
   const { setAdmin, axios } = useContext(AppContext);
@@ -80,24 +80,24 @@ const AdminLayout = () => {
   };
   return (
     <div className="drawer lg:drawer-open">
-      <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
-      <div className="drawer-content flex flex-col items-start justify-start min-h-screen">
-        {/* Page content here */}
-        {/**navbar */}
-        <div className="navbar bg-base-100 shadow-sm">
+      <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
+      <div className="drawer-content">
+        {/* Navbar */}
+        <nav className="navbar w-full bg-base-300">
           <div className="navbar-start">
             <label
-              htmlFor="my-drawer-3"
-              className="btn drawer-button btn-square btn-ghost lg:hidden"
+              htmlFor="my-drawer-4"
+              aria-label="open sidebar"
+              className="btn btn-square btn-ghost"
             >
-              <MdOutlineMenu size={25} />
+              {/* Sidebar toggle icon */}
+              <GoSidebarCollapse size={20} />
             </label>
-            <h1 className="text-xl px-3">
+            <div className="px-4">
               {menuItems.find((item) => isActive(item.path, item.exact))
                 ?.name || "Admin Panel"}
-            </h1>
+            </div>
           </div>
-
           <div className="navbar-end">
             <div className="dropdown dropdown-end">
               <div
@@ -120,39 +120,46 @@ const AdminLayout = () => {
               <span>Admin User</span>
             </div>
           </div>
-        </div>
-
-        {/**page content */}
-        <div className="">
+        </nav>
+        {/* Page content here */}
+        <div className="p-4">
           <Outlet />
         </div>
       </div>
-      <div className="drawer-side">
+
+      <div className="drawer-side is-drawer-close:overflow-visible">
         <label
-          htmlFor="my-drawer-3"
+          htmlFor="my-drawer-4"
           aria-label="close sidebar"
           className="drawer-overlay"
         ></label>
-        <ul className="menu bg-base-200 min-h-full w-80 p-4">
+        <div className="flex min-h-full flex-col items-start bg-base-200 is-drawer-close:w-14 is-drawer-open:w-64">
           {/* Sidebar content here */}
-          {menuItems.map((menuItem, key) => {
-            const Icon = menuItem.icons;
-            const active = isActive(menuItem.path, menuItem.exact);
-            return (
-              <li key={key}>
-                <Link
-                  to={menuItem.path}
-                  className={`px-4 py-3 my-2 ${
-                    active ? "bg-info border-r-4" : ""
-                  }`}
-                >
-                  <Icon size={20} />
-                  {menuItem.name}
+          <ul className="menu w-full grow">
+            {/* List item */}
+            {menuItems.map((menuItem, key) => {
+              const Icon = menuItem.icons;
+              const active = isActive(menuItem.path, menuItem.exact);
+              return (
+                <Link to={menuItem.path} key={key}>
+                  <li className="my-5">
+                    <button
+                      className={`is-drawer-close:tooltip is-drawer-close:tooltip-right ${
+                        active ? "bg-gray-400 border-r-4" : ""
+                      }`}
+                      data-tip={menuItem.name}
+                    >
+                      <Icon size={20} />
+                      <span className="is-drawer-close:hidden">
+                        {menuItem.name}
+                      </span>
+                    </button>
+                  </li>
                 </Link>
-              </li>
-            );
-          })}
-        </ul>
+              );
+            })}
+          </ul>
+        </div>
       </div>
     </div>
   );
