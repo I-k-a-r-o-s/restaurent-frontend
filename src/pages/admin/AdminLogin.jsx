@@ -1,11 +1,11 @@
 import { useContext, useState } from "react";
 import toast from "react-hot-toast";
 import { MdLockOutline, MdOutlineMail } from "react-icons/md";
-import { Link } from "react-router";
+import { AppContext } from "../../context/AppContext";
 
 const AdminLogin = () => {
-
-  const { axios, loading, setLoading,navigate,setUser } = useContext(AppContext);
+  const { axios, loading, setLoading, navigate, setAdmin } =
+    useContext(AppContext);
 
   const [formData, setFormData] = useState({
     email: "",
@@ -16,20 +16,20 @@ const AdminLogin = () => {
     e.preventDefault();
     try {
       setLoading(true);
-      const { data } = await axios.post("/api/auth/login", formData);
+      const { data } = await axios.post("/api/auth/admin/login", formData);
       if (data.success) {
-        setUser(true)
+        
+        localStorage.setItem("admin",JSON.stringify(data.admin))
+        setAdmin(true);
         toast.success(data.message);
-        navigate("/")
+        navigate("/admin");
       } else {
         toast.error(data.message);
       }
-      console.log(formData);
     } catch (error) {
       toast.error(error.response.data.message);
-    }
-    finally{
-      setLoading(false)
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -41,11 +41,11 @@ const AdminLogin = () => {
   const notify = (fieldName) => toast.error(`Please fill out ${fieldName}`);
 
   return (
-    <div className="flex items-center justify-center">
+    <div className="flex items-center justify-center min-h-screen">
       <form onSubmit={handleSubmit} className="m-10">
         <fieldset className="fieldset bg-base-200 border-base-300 rounded-box w-sm border p-4">
           <div className="flex items-center justify-center">
-            <h1 className="text-xl">Login</h1>
+            <h1 className="text-xl">Admin Login</h1>
           </div>
           <label className="label">Email</label>
           <div className="join">
@@ -82,14 +82,8 @@ const AdminLogin = () => {
             />
           </div>
           <button type="submit" className="btn btn-primary mt-4">
-            {loading?"Loading...":"Login"}
+            {loading ? "Loading..." : "Login"}
           </button>
-          <p className="label pt-2">
-            Don't have an account?
-            <Link to={"/signup"} className="link link-info link-hover pl-2 ">
-              Sign Up
-            </Link>
-          </p>
         </fieldset>
       </form>
     </div>

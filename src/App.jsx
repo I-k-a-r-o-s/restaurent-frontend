@@ -30,7 +30,7 @@ const App = () => {
   const { admin } = useContext(AppContext);
   return (
     <div>
-      <Toaster />
+      <Toaster position="bottom-center" reverseOrder={false} />
       {!adminPath && <Navbar />}
       <Routes>
         {/**base routes*/}
