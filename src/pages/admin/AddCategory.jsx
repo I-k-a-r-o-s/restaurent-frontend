@@ -1,7 +1,6 @@
 import { useContext, useState } from "react";
 import { AppContext } from "../../context/AppContext";
 import toast from "react-hot-toast";
-import { ImGift } from "react-icons/im";
 
 const AddCategory = () => {
   const { axios, navigate, loading, setLoading } = useContext(AppContext);
@@ -52,7 +51,9 @@ const AddCategory = () => {
         <fieldset className="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4">
           <div className="card card-border bg-base-200 w-96">
             <div className="card-body items-center justify-center">
-              {!preview && <h2 className="card-title">Image Preview</h2>}
+              <h2 className="card-title">
+                {file ? file.name : "Image Preview"}
+              </h2>
               <label className="label">
                 {preview && <img src={preview} alt="preview" />}
               </label>
