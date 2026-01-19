@@ -13,6 +13,20 @@ const AppContextProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState(null);
   const [admin, setAdmin] = useState(null);
+  const [categories, setCategories] = useState([]);
+
+  const fetchCategories = async () => {
+    try {
+      const { data } = await axios.get("/api/category/all");
+      if (data.success) {
+        setCategories(data.categories);
+      } else {
+        console.log("Failed to fetch categories");
+      }
+    } catch (error) {
+      console.log("Error fetching categories:", error);
+    }
+  };
 
   const isAuth = async () => {
     try {
@@ -31,6 +45,7 @@ const AppContextProvider = ({ children }) => {
 
   useEffect(() => {
     isAuth();
+    fetchCategories();
   }, []);
 
   const value = {
@@ -42,6 +57,8 @@ const AppContextProvider = ({ children }) => {
     axios,
     admin,
     setAdmin,
+    categories,
+    fetchCategories,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
