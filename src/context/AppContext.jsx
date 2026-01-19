@@ -14,6 +14,20 @@ const AppContextProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [admin, setAdmin] = useState(null);
   const [categories, setCategories] = useState([]);
+  const [menus, setMenus] = useState([]);
+
+  const fetchMenus = async () => {
+    try {
+      const { data } = await axios.get("/api/menu/all");
+      if (data.success) {
+        setMenus(data.menuItems);
+      } else {
+        console.log("Failed to fetch menus");
+      }
+    } catch (error) {
+      console.log("Error fetching menus:", error);
+    }
+  };
 
   const fetchCategories = async () => {
     try {
@@ -46,6 +60,7 @@ const AppContextProvider = ({ children }) => {
   useEffect(() => {
     isAuth();
     fetchCategories();
+    fetchMenus();
   }, []);
 
   const value = {
@@ -59,6 +74,8 @@ const AppContextProvider = ({ children }) => {
     setAdmin,
     categories,
     fetchCategories,
+    menus,
+    fetchMenus,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
