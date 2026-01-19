@@ -5,7 +5,7 @@ import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
 import Contact from "./pages/Contact";
 import Login from "./pages/Login";
-import Menu from "./pages/Menus.jsx";
+import Menu from "./pages/Menu.jsx";
 import MyBookings from "./pages/MyBookings";
 import MyOrders from "./pages/MyOrders";
 import Signup from "./pages/Signup";
@@ -21,9 +21,9 @@ import Dashboard from "./pages/admin/Dashboard.jsx";
 import AddCategory from "./pages/admin/AddCategory.jsx";
 import AddMenu from "./pages/admin/AddMenu.jsx";
 import Categories from "./pages/admin/Categories.jsx";
-import Menus from "./pages/Menus.jsx";
 import Orders from "./pages/admin/Orders.jsx";
 import Bookings from "./pages/admin/Bookings.jsx";
+import Menus from "./pages/admin/Menus.jsx";
 
 const App = () => {
   const adminPath = useLocation().pathname.includes("admin");
