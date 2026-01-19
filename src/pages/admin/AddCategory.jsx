@@ -63,7 +63,7 @@ const AddCategory = () => {
                     {loading ? (
                       <span className="loading loading-spinner loading-xs"></span>
                     ) : (
-                      "Upload"
+                      "Add Category"
                     )}
                   </button>
                 )}
@@ -88,6 +88,7 @@ const AddCategory = () => {
             className="file-input"
             id="fileUpload"
             onChange={handleFileChange}
+            required
           />
         </fieldset>
       </form>

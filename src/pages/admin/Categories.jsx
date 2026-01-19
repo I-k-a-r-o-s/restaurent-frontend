@@ -20,60 +20,57 @@ const Categories = () => {
     }
   };
   return (
-    <div className="m-5">
-      <h1 className="font-semibold pb-8">All Categories</h1>
-      <div className="overflow-x-auto">
-        <table className="table">
-          {/* head */}
-          <thead>
-            <tr>
-              <th>Image</th>
-              <th>Name</th>
-              <th>Action</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {/* row 1 */}
-            {categories.map((item) => (
-              <tr key={item._id}>
-                <td>
-                  <div className="flex items-center gap-3">
-                    <div className="avatar">
-                      <div className="mask mask-squircle h-20 w-20">
-                        <img src={item.image} alt="category image" />
-                      </div>
+    <div className="overflow-x-auto">
+      <table className="table">
+        {/* head */}
+        <thead>
+          <tr>
+            <th>Image</th>
+            <th>Name</th>
+            <th>Action</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {/* row 1 */}
+          {categories.map((item) => (
+            <tr key={item._id}>
+              <td>
+                <div className="flex items-center gap-3">
+                  <div className="avatar">
+                    <div className="mask mask-squircle h-20 w-20">
+                      <img src={item.image} alt="category image" />
                     </div>
                   </div>
-                </td>
-                <td>
-                  {item.name}
-                  <br />
-                </td>
-                <td onClick={() => deleteCategory(item._id)}>
-                  <MdOutlineDeleteForever
-                    className="btn btn-ghost btn-error btn-circle"
-                    size={20}
-                  />
-                  <br />
-                  <span className="badge badge-ghost badge-sm">
-                    Delete Category
-                  </span>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-          {/* foot */}
-          <tfoot>
-            <tr>
-              <th>Image</th>
-              <th>Name</th>
-              <th>Action</th>
-              <th></th>
+                </div>
+              </td>
+              <td>
+                {item.name}
+                <br />
+              </td>
+              <td onClick={() => deleteCategory(item._id)}>
+                <MdOutlineDeleteForever
+                  className="btn btn-ghost btn-error btn-circle"
+                  size={20}
+                />
+                <br />
+                <span className="badge badge-ghost badge-sm">
+                  Delete Category
+                </span>
+              </td>
             </tr>
-          </tfoot>
-        </table>
-      </div>
+          ))}
+        </tbody>
+        {/* foot */}
+        <tfoot>
+          <tr>
+            <th>Image</th>
+            <th>Name</th>
+            <th>Action</th>
+            <th></th>
+          </tr>
+        </tfoot>
+      </table>
     </div>
   );
 };
