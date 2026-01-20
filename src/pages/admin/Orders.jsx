@@ -15,7 +15,7 @@ const Orders = () => {
         console.log(data.message);
       }
     } catch (error) {
-      console.log(error);
+      console.log("Error in fetchOrders",error);
     }
   };
 
@@ -32,7 +32,7 @@ const Orders = () => {
         toast.error(data.message);
       }
     } catch (error) {
-      console.log(error);
+      console.log("Error in handleStatusChange(Orders)",error);
     } finally {
       setLoading(false);
     }
@@ -99,7 +99,7 @@ const Orders = () => {
                   disabled={loading}
                   className="select"
                 >
-                  <option disabled={true}>Pick a Statu</option>
+                  <option disabled={true}>Pick a Status</option>
                   <option value={"Pending"}>Pending</option>
                   <option value={"Preparing"}>Preparing</option>
                   <option value={"Delivered"}>Delivered</option>
