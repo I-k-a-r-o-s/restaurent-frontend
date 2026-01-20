@@ -15,7 +15,7 @@ const Bookings = () => {
         console.log(data.message);
       }
     } catch (error) {
-      console.log("Error in fetchBookings:",error);
+      console.log("Error in fetchBookings:", error);
     }
   };
 
@@ -32,7 +32,7 @@ const Bookings = () => {
         toast.error(data.message);
       }
     } catch (error) {
-      console.log("Error in handleStatusChange(Bookings)",error);
+      console.log("Error in handleStatusChange(Bookings)", error);
     } finally {
       setLoading(false);
     }
@@ -52,8 +52,8 @@ const Bookings = () => {
             <th>Name</th>
             <th>Phone Number</th>
             <th>People</th>
-            <th>Date</th>
-            <th>Time</th>
+            <th>Date & Time</th>
+            <th>Note</th>
             <th>Status</th>
             <th></th>
           </tr>
@@ -61,16 +61,20 @@ const Bookings = () => {
         <tbody>
           {/* row 1 */}
           {bookings.map((item) => (
-            <tr key={item._id}>             
+            <tr key={item._id}>
               <td>{item?.name}</td>
               <td>{item?.phone}</td>
               <td>{item?.numberOfPeople}</td>
-              <td>{new Date(item?.date).toLocaleDateString("en-US",{
-                day:"2-digit",
-                month:"short",
-                year:"numeric"
-              })}</td>
-              <td>{item?.time}</td>
+              <td>
+                {new Date(item?.date).toLocaleDateString("en-US", {
+                  day: "2-digit",
+                  month: "short",
+                  year: "numeric",
+                })}
+                <br />
+                <span className="">{item?.time}</span>
+              </td>
+              <td>{item?.note}</td>
               <td>
                 <select
                   name="status"
@@ -94,8 +98,8 @@ const Bookings = () => {
             <th>Name</th>
             <th>Phone Number</th>
             <th>People</th>
-            <th>Date</th>
-            <th>Time</th>
+            <th>Date & Time</th>
+            <th>Note</th>
             <th>Status</th>
             <th></th>
           </tr>
