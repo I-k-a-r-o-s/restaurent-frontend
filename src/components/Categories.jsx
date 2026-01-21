@@ -6,7 +6,7 @@ const Categories = () => {
   return (
     <section>
       <div className="container mx-auto px-4 text-center">
-        <h2 className="text-4xl font-bold mb-4">
+        <h2 className="text-4xl font-bold my-4">
           Explore Our <span className="text-info">Categories</span>
         </h2>
         <p>Delicious Dishes from Carefully Curated Categories</p>
