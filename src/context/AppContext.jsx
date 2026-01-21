@@ -12,7 +12,11 @@ const AppContextProvider = ({ children }) => {
 
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState(null);
-  const [admin, setAdmin] = useState(null);
+  const [admin, setAdmin] = useState(() => {
+    // Restore admin state from localStorage on initialization
+    const savedAdmin = localStorage.getItem("admin");
+    return savedAdmin ? JSON.parse(savedAdmin) : null;
+  });
   const [categories, setCategories] = useState([]);
   const [menus, setMenus] = useState([]);
 
@@ -62,6 +66,15 @@ const AppContextProvider = ({ children }) => {
     fetchCategories();
     fetchMenus();
   }, []);
+
+  // Sync admin state changes to localStorage
+  useEffect(() => {
+    if (admin) {
+      localStorage.setItem("admin", JSON.stringify(admin));
+    } else {
+      localStorage.removeItem("admin");
+    }
+  }, [admin]);
 
   const value = {
     navigate,
