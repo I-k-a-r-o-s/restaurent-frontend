@@ -1,8 +1,12 @@
-import Hero from "../components/Hero"
+import Categories from "../components/Categories";
+import Hero from "../components/Hero";
 
 const Home = () => {
   return (
-    <div><Hero/></div>
-  )
-}
-export default Home
+    <div>
+      <Hero />
+      <Categories />
+    </div>
+  );
+};
+export default Home;
