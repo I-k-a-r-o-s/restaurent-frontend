@@ -1,6 +1,7 @@
 import Categories from "../components/Categories";
 import Hero from "../components/Hero";
 import MenuComponent from "../components/MenuComponent";
+import NewsLetter from "../components/NewsLetter";
 
 const Home = () => {
   return (
@@ -8,6 +9,7 @@ const Home = () => {
       <Hero />
       <Categories />
       <MenuComponent/>
+      <NewsLetter/>
     </div>
   );
 };
