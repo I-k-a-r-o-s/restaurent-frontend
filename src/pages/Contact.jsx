@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { LuMapPin } from "react-icons/lu";
+import { MdOutlineEmail, MdOutlinePhone } from "react-icons/md";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -49,7 +51,9 @@ const Contact = () => {
           {/* Contact Info Cards */}
           <div className="card bg-base-200 shadow-lg">
             <div className="card-body items-center text-center">
-              <div className="text-4xl mb-3">📍</div>
+              <div className="mb-3">
+                <LuMapPin size={35} />
+              </div>
               <h2 className="card-title text-primary">Location</h2>
               <p className="text-base-content/80">123 Food Street</p>
               <p className="text-base-content/80">City, State 12345</p>
@@ -58,7 +62,9 @@ const Contact = () => {
 
           <div className="card bg-base-200 shadow-lg">
             <div className="card-body items-center text-center">
-              <div className="text-4xl mb-3">📞</div>
+              <div className="mb-3">
+                <MdOutlinePhone size={35} />
+              </div>
               <h2 className="card-title text-primary">Phone</h2>
               <p className="text-base-content/80">+1 (555) 123-4567</p>
               <p className="text-base-content/80">Mon-Fri: 9am-9pm</p>
@@ -67,7 +73,9 @@ const Contact = () => {
 
           <div className="card bg-base-200 shadow-lg">
             <div className="card-body items-center text-center">
-              <div className="text-4xl mb-3">✉️</div>
+              <div className="mb-3">
+                <MdOutlineEmail size={35} />
+              </div>
               <h2 className="card-title text-primary">Email</h2>
               <p className="text-base-content/80">info@restaurant.com</p>
               <p className="text-base-content/80">support@restaurant.com</p>
@@ -212,7 +220,7 @@ const Contact = () => {
                   </div>
                 </div>
               </div>
-            </div>  
+            </div>
           </div>
         </div>
       </div>
