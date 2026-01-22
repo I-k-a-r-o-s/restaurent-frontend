@@ -1,6 +1,6 @@
 const Testimonial = () => {
   return (
-    <div className="carousel w-full m-5">
+    <div className="carousel w-full carousel-center">
       <div
         id="slide1"
         className="carousel-item relative w-full flex justify-center items-center"
