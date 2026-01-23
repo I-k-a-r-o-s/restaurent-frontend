@@ -25,7 +25,6 @@ const Login = () => {
       } else {
         toast.error(data.message);
       }
-      console.log(formData);
     } catch (error) {
       toast.error(error.response.data.message);
     }
