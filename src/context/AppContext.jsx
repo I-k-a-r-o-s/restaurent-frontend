@@ -23,12 +23,31 @@ const AppContextProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
 
+  const fetchCartData = async () => {
+    try {
+      const { data } = await axios.get("/api/cart/get");
+      if (data.success) {
+        setCart(data.cart);
+      }
+    } catch (error) {
+      console.log("Error in fetchCartData:", error);
+    }
+  };
+
   useEffect(() => {
-    const total = cart.reduce(
-      (acc, item) => acc + item.price * item.quantity,
-      0,
-    );
-  });
+    if (cart?.items) {
+      const total = cart.items.reduce(
+        (sum, item) => sum + item.menuItem.price * item.quantity,
+        0,
+      );
+      setTotalPrice(total);
+    }
+  }, [cart]);
+
+  const cartCount = cart?.items?.reduce(
+    (acc, item) => acc + item.quantity,
+    0 || 0,
+  );
 
   const addToCart = async (menuId) => {
     try {
@@ -37,6 +56,7 @@ const AppContextProvider = ({ children }) => {
         quantity: 1,
       });
       if (data.success) {
+        fetchCartData();
         toast.success(data.message);
       } else {
         toast.error(data.message);
@@ -92,6 +112,7 @@ const AppContextProvider = ({ children }) => {
     isAuth();
     fetchCategories();
     fetchMenus();
+    fetchCartData();
   }, []);
 
   // Sync admin state changes to localStorage
@@ -117,6 +138,9 @@ const AppContextProvider = ({ children }) => {
     menus,
     fetchMenus,
     addToCart,
+    cartCount,
+    cart,
+    totalPrice,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
