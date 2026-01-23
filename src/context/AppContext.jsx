@@ -1,6 +1,7 @@
 import axios from "axios";
 import { createContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router";
+import toast from "react-hot-toast";
 
 export const AppContext = createContext();
 
@@ -19,6 +20,32 @@ const AppContextProvider = ({ children }) => {
   });
   const [categories, setCategories] = useState([]);
   const [menus, setMenus] = useState([]);
+  const [cart, setCart] = useState([]);
+  const [totalPrice, setTotalPrice] = useState(0);
+
+  useEffect(() => {
+    const total = cart.reduce(
+      (acc, item) => acc + item.price * item.quantity,
+      0,
+    );
+  });
+
+  const addToCart = async (menuId) => {
+    try {
+      const { data } = await axios.post("/api/cart/add", {
+        menuId,
+        quantity: 1,
+      });
+      if (data.success) {
+        toast.success(data.message);
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      console.log("Add to Cart Error:", error);
+      toast.error("Something Went Wrong!");
+    }
+  };
 
   const fetchMenus = async () => {
     try {
@@ -89,6 +116,7 @@ const AppContextProvider = ({ children }) => {
     fetchCategories,
     menus,
     fetchMenus,
+    addToCart,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
