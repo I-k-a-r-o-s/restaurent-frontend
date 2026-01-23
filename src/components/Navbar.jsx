@@ -9,7 +9,7 @@ import ThemeSelector from "./ThemeSelector";
 import toast from "react-hot-toast";
 
 const Navbar = () => {
-  const { navigate, user, setUser, axios,cartCount } = useContext(AppContext);
+  const { navigate, user, setUser, axios, cartCount } = useContext(AppContext);
 
   const logOut = async () => {
     try {
@@ -94,7 +94,9 @@ const Navbar = () => {
               onClick={() => navigate("/cart")}
             />
           </button>
-          <span className="badge badge-secondary indicator-item">{cartCount}</span>
+          <span className="badge badge-secondary indicator-item">
+            {cartCount > 0 ? cartCount : 0}
+          </span>
         </div>
 
         <div>
