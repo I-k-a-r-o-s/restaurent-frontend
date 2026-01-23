@@ -3,7 +3,7 @@ import { AppContext } from "../context/AppContext";
 import { GiShoppingCart } from "react-icons/gi";
 
 const MenuCard = ({ menu }) => {
-  const { navigate } = useContext(AppContext);
+  const { navigate, addToCart } = useContext(AppContext);
   return (
     <div className="card bg-base-100" key={menu._id}>
       <div
@@ -38,7 +38,11 @@ const MenuCard = ({ menu }) => {
         <p>{menu.description}</p>
         <div className="card-actions justify-end">
           <p>Price: {menu.price}</p>
-          <button className="btn btn-primary btn-sm" disabled={!menu.isAvailable}>
+          <button
+            className="btn btn-primary btn-sm"
+            disabled={!menu.isAvailable}
+            onClick={() => addToCart(menu._id)}
+          >
             Add to
             <GiShoppingCart size={20} />
           </button>

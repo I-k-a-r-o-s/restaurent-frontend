@@ -8,7 +8,7 @@ import { GiShoppingCart } from "react-icons/gi";
 
 const MenuDetails = () => {
   const { id } = useParams();
-  const { menus, navigate } = useContext(AppContext);
+  const { menus, navigate,addToCart } = useContext(AppContext);
   const [quantity, setQuantity] = useState(1);
 
   const menu = menus.find((item) => item._id === id);
@@ -73,7 +73,7 @@ const MenuDetails = () => {
             <button
               className="btn btn-sm btn-primary"
               disabled={!menu.isAvailable}
-              onClick={""}
+              onClick={()=>addToCart(menu._id)}
             >
               {menu.isAvailable ? "Add to cart" : "Unavailable"}
               <GiShoppingCart size={20} />
