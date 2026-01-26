@@ -45,6 +45,7 @@ const Cart = () => {
               <td>{item.quantity}</td>
               <td>{item.menuItem.price}</td>
               <td>{item.menuItem.price * item.quantity}</td>
+              
             </tr>
           ))}
         </tbody>
@@ -61,7 +62,12 @@ const Cart = () => {
       </table>
       <div className="flex flex-row justify-center items-center m-6 gap-5">
         <span>Total: {totalPrice}</span>
-        <button className="btn btn-primary btn-sm"onClick={()=>navigate("/checkout")}>Checkout</button>
+        <button
+          className="btn btn-primary btn-sm"
+          onClick={() => navigate("/checkout")}
+        >
+          Checkout
+        </button>
       </div>
     </div>
   );
