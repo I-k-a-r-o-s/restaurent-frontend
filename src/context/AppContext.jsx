@@ -141,6 +141,7 @@ const AppContextProvider = ({ children }) => {
     cartCount,
     cart,
     totalPrice,
+    fetchCartData,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;

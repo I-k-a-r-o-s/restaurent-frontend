@@ -46,6 +46,11 @@ const Navbar = () => {
               </Link>
             </li>
             <li>
+            <Link to={"/book-table"}>
+              <button>Book a Table</button>
+            </Link>
+          </li>
+            <li>
               <Link to={"/contact"}>
                 <button>Contact</button>
               </Link>

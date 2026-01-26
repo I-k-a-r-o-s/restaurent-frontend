@@ -1,18 +1,31 @@
 import { useContext } from "react";
 import { AppContext } from "../context/AppContext";
+import toast from "react-hot-toast";
+import { MdOutlineRemoveCircleOutline } from "react-icons/md";
 
 const Cart = () => {
-  const { cart, totalPrice, navigate } = useContext(AppContext);
+  const { cart, totalPrice, navigate, axios, fetchCartData } =
+    useContext(AppContext);
 
-  {
-    if (!cart || !cart.items || !cart.items.length === 0) {
-      return (
-        <div className="flex flex-col items-center justify-center h-64">
-          <h2 className="text-2xl font-semibold">Your Cart is Empty</h2>
-        </div>
-      );
-    }
+  if (!cart || !cart.items || !cart.items.length === 0) {
+    return (
+      <div className="flex flex-col items-center justify-center h-64">
+        <h2 className="text-2xl font-semibold">Your Cart is Empty</h2>
+      </div>
+    );
   }
+
+  const removeFromCart = async (menuId) => {
+    try {
+      const { data } = await axios.delete(`/api/cart/remove/${menuId}`);
+      if (data.success) {
+        fetchCartData();
+        toast.success(data.message);
+      }
+    } catch (error) {
+      console.log("Error in removeFromCart(Cart):", error);
+    }
+  };
   return (
     <div className="overflow-x-auto">
       <table className="table">
@@ -23,6 +36,7 @@ const Cart = () => {
             <th>Quantity</th>
             <th>Price</th>
             <th>Total</th>
+            <th>Action</th>
             <th></th>
           </tr>
         </thead>
@@ -45,7 +59,12 @@ const Cart = () => {
               <td>{item.quantity}</td>
               <td>{item.menuItem.price}</td>
               <td>{item.menuItem.price * item.quantity}</td>
-              
+              <td>
+                <MdOutlineRemoveCircleOutline
+                  className="btn btn-ghost btn-circle h-8 w-8"
+                  onClick={() => removeFromCart(item.menuItem._id)}
+                />
+              </td>
             </tr>
           ))}
         </tbody>
@@ -56,6 +75,7 @@ const Cart = () => {
             <th>Quantity</th>
             <th>Price</th>
             <th>Total</th>
+            <th>Action</th>
             <th></th>
           </tr>
         </tfoot>
