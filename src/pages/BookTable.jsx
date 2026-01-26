@@ -60,7 +60,7 @@ const BookTable = () => {
             required
           />
 
-          <label className="label">Phone No:</label>
+          <label className="label">Phone Number</label>
           <input
             type="tel"
             className="input"
