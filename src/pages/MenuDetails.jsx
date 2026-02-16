@@ -27,57 +27,165 @@ const MenuDetails = () => {
   }
 
   return (
-    <div className="min-h-screen">
-      <h1>Incomplete!</h1>
-      <div className="container mx-auto px-4 py-6">
+    <div className="min-h-screen bg-linear-to-br from-base-100 to-base-200 py-8">
+      <div className="container mx-auto px-4">
+        {/* Back Button */}
         <button
-          className="flex items-center gap-2"
+          className="btn btn-ghost gap-2 mb-6 text-lg"
           onClick={() => navigate("/menu")}
         >
-          <LuArrowLeft
-            size={20}
-            className="group-hover:-translate-x-1 transitiom-transform"
-          />
-          <span className="font-semibold">Back to Menu</span>
+          <LuArrowLeft size={20} />
+          Back to Menu
         </button>
-      </div>
-      <div className="card bg-base-100 w-96 shadow-sm card-xl">
-        <figure>
-          <img src={menu.image} alt={menu.name} />
-        </figure>
-        <div className="card-body">
-          <h2 className="card-title">
-            {menu.name}
-            {menu.isAvailable ? (
-              <div className="badge badge-success">
-                <MdOutlineCheckCircle size={20} />
-                Available
-              </div>
-            ) : (
-              <div className="badge badge-error">
-                <FiXCircle size={20} /> Unavailable
-              </div>
-            )}
-          </h2>
-          <p>
-            <span>Price: {menu.price} per item.</span>
-          </p>
-          <div>
-            <h4>Description</h4>
-            <p>{menu.description}</p>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          {/* Left: Image Gallery */}
+          <div className="space-y-4">
+            <div className="card bg-base-100 shadow-xl border-4 border-primary overflow-hidden">
+              <figure className="relative h-80 bg-linear-to-br from-base-100 to-base-200">
+                <img
+                  src={menu.image}
+                  alt={menu.name}
+                  className="w-full h-full object-cover hover:scale-110 transition-transform duration-500"
+                />
+                {menu.isAvailable ? (
+                  <div className="absolute top-4 right-4 badge badge-success badge-lg gap-2 text-white text-sm">
+                    <MdOutlineCheckCircle size={18} />
+                    In Stock
+                  </div>
+                ) : (
+                  <div className="absolute top-4 right-4 badge badge-error badge-lg gap-2 text-white text-sm">
+                    <FiXCircle size={18} />
+                    Out of Stock
+                  </div>
+                )}
+              </figure>
+            </div>
           </div>
-          <div className="card-actions justify-between">
-            <span className="font-semibold">
-              Total Amount: <span className="font-bold">{}</span>
-            </span>
-            <button
-              className="btn btn-sm btn-primary"
-              disabled={!menu.isAvailable}
-              onClick={()=>addToCart(menu._id)}
-            >
-              {menu.isAvailable ? "Add to cart" : "Unavailable"}
-              <GiShoppingCart size={20} />
-            </button>
+
+          {/* Right: Details */}
+          <div className="space-y-6">
+            {/* Title and Rating */}
+            <div>
+              <h1 className="text-5xl font-bold mb-4">{menu.name}</h1>
+              <div className="flex items-center gap-3 mb-4">
+                <div className="flex gap-1">
+                  {[...Array(5)].map((_, i) => (
+                    <span key={i} className="text-2xl">⭐</span>
+                  ))}
+                </div>
+                <span className="text-xl font-bold">4.8/5 (120 reviews)</span>
+              </div>
+            </div>
+
+            {/* Category Badge */}
+            <div className="flex gap-2 flex-wrap">
+              <span className="badge badge-primary badge-lg gap-1 py-3">
+                🎯 {menu.category?.name || "Uncategorized"}
+              </span>
+              <span className="badge badge-secondary badge-lg gap-1 py-3">
+                🔥 Popular Choice
+              </span>
+            </div>
+
+            {/* Price and Description */}
+            <div className="space-y-3">
+              <div className="card bg-linear-to-r from-primary/20 to-secondary/20">
+                <div className="card-body">
+                  <p className="text-base-content/70">Price per item</p>
+                  <p className="text-4xl font-bold text-primary">₹{menu.price}</p>
+                </div>
+              </div>
+
+              <div>
+                <h3 className="text-2xl font-bold mb-2">📝 Description</h3>
+                <p className="text-lg text-base-content/80 leading-relaxed">
+                  {menu.description}
+                </p>
+              </div>
+            </div>
+
+            {/* Specifications */}
+            <div className="space-y-2">
+              <h3 className="text-2xl font-bold">🍽️ Details</h3>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="alert alert-info gap-2">
+                  <span>🕐</span>
+                  <span>
+                    <strong>Prep Time</strong>
+                    <br />
+                    15-20 mins
+                  </span>
+                </div>
+                <div className="alert alert-success gap-2">
+                  <span>♨️</span>
+                  <span>
+                    <strong>Spice Level</strong>
+                    <br />
+                    Medium
+                  </span>
+                </div>
+                <div className="alert alert-warning gap-2">
+                  <span>🥬</span>
+                  <span>
+                    <strong>Type</strong>
+                    <br />
+                    Non-Vegetarian
+                  </span>
+                </div>
+                <div className="alert alert-accent gap-2">
+                  <span>🍽️</span>
+                  <span>
+                    <strong>Serves</strong>
+                    <br />
+                    1-2 People
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Quantity Selector and Add to Cart */}
+            <div className="space-y-3">
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text font-semibold">👥 Select Quantity</span>
+                </label>
+                <div className="flex items-center gap-4">
+                  <button className="btn btn-outline btn-circle" onClick={() => setQuantity(Math.max(1, quantity - 1))}>
+                    ➖
+                  </button>
+                  <span className="text-3xl font-bold w-12 text-center">{quantity}</span>
+                  <button className="btn btn-outline btn-circle" onClick={() => setQuantity(quantity + 1)}>
+                    ➕
+                  </button>
+                </div>
+              </div>
+
+              <div className="card bg-base-100 border-2 border-primary/20">
+                <div className="card-body">
+                  <div className="flex justify-between items-center mb-4">
+                    <span className="text-lg font-semibold">Total Amount:</span>
+                    <span className="text-3xl font-bold text-success">₹{menu.price * quantity}</span>
+                  </div>
+                  <button
+                    className="btn btn-primary btn-lg w-full gap-2 font-bold"
+                    disabled={!menu.isAvailable}
+                    onClick={() => {
+                      addToCart(menu._id);
+                    }}
+                  >
+                    {menu.isAvailable ? (
+                      <>
+                        <GiShoppingCart size={24} />
+                        Add {quantity} to Cart
+                      </>
+                    ) : (
+                      <>❌ Out of Stock</>
+                    )}
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

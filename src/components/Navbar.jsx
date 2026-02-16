@@ -24,145 +24,143 @@ const Navbar = () => {
     }
   };
   return (
-    <div className="navbar bg-base-100 shadow-sm">
+    <div className="navbar bg-base-100 shadow-lg border-b border-base-300 sticky top-0 z-50">
       <div className="navbar-start">
-        {/**mobile view */}
-        <div className="dropdown">
-          <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
+        {/* Mobile menu */}
+        <div className="dropdown lg:hidden">
+          <div tabIndex={0} role="button" className="btn btn-ghost btn-circle hover:bg-primary hover:text-primary-content transition-all">
             <MdOutlineMenu size={25} />
           </div>
           <ul
             tabIndex={-1}
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-5 w-52 p-2 shadow"
+            className="menu menu-compact dropdown-content bg-base-200 rounded-lg z-50 mt-3 w-56 p-3 shadow-xl"
           >
             <li>
-              <Link to={"/"}>
-                <button>Home</button>
+              <Link to="/" className="hover:bg-primary hover:text-primary-content rounded-lg transition-all">
+                🏠 Home
               </Link>
             </li>
             <li>
-              <Link to={"/menu"}>
-                <button>Menu</button>
+              <Link to="/menu" className="hover:bg-primary hover:text-primary-content rounded-lg transition-all">
+                🍽️ Menu
               </Link>
             </li>
             <li>
-            <Link to={"/book-table"}>
-              <button>Book a Table</button>
-            </Link>
-          </li>
+              <Link to="/book-table" className="hover:bg-primary hover:text-primary-content rounded-lg transition-all">
+                📅 Book a Table
+              </Link>
+            </li>
             <li>
-              <Link to={"/contact"}>
-                <button>Contact</button>
+              <Link to="/contact" className="hover:bg-primary hover:text-primary-content rounded-lg transition-all">
+                📞 Contact
               </Link>
             </li>
           </ul>
         </div>
 
-        {/**Restaurent logo */}
-        <Link to={"/"}>
+        {/* Logo */}
+        <Link to="/" className="btn btn-ghost btn-circle p-0 w-12 h-12 lg:w-14 lg:h-14 rounded-full hover:scale-110 transition-transform">
           <img
             src={logo}
-            alt="restaurent-logo"
-            className="w-10 h-10 lg:w-15 lg:h-15 rounded-full"
+            alt="restaurant-logo"
+            className="w-full h-full object-cover rounded-full"
           />
         </Link>
       </div>
 
-      {/**Navigation links */}
+      {/* Navigation links - Desktop */}
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1 text-lg">
+        <ul className="menu menu-horizontal gap-1 text-base font-semibold">
           <li>
-            <Link to={"/"}>
-              <button>Home</button>
+            <Link to="/" className="btn btn-ghost hover:bg-primary hover:text-primary-content transition-all rounded-lg">
+              🏠 Home
             </Link>
           </li>
           <li>
-            <Link to={"/menu"}>
-              <button>Menu</button>
+            <Link to="/menu" className="btn btn-ghost hover:bg-primary hover:text-primary-content transition-all rounded-lg">
+              🍽️ Menu
             </Link>
           </li>
           <li>
-            <Link to={"/book-table"}>
-              <button>Book a Table</button>
+            <Link to="/book-table" className="btn btn-ghost hover:bg-primary hover:text-primary-content transition-all rounded-lg">
+              📅 Book Table
             </Link>
           </li>
           <li>
-            <Link to={"/contact"}>
-              <button>Contact</button>
+            <Link to="/contact" className="btn btn-ghost hover:bg-primary hover:text-primary-content transition-all rounded-lg">
+              📞 Contact
             </Link>
           </li>
         </ul>
       </div>
 
-      <div className="navbar-end">
+      <div className="navbar-end gap-3">
+        {/* Theme selector */}
         <ThemeSelector />
-        {/**Cart icon */}
-        <div className="indicator mx-5">
-          <button className="btn btn-ghost">
-            <MdOutlineShoppingCart
-              size={25}
-              onClick={() => navigate("/cart")}
-            />
-          </button>
-          <span className="badge badge-secondary indicator-item">
-            {cartCount > 0 ? cartCount : 0}
-          </span>
-        </div>
+        
+        {/* Cart icon with badge */}
+        <button 
+          className="btn btn-ghost btn-circle relative hover:bg-secondary hover:text-secondary-content transition-all"
+          onClick={() => navigate("/cart")}
+          title="Shopping Cart"
+        >
+          <div className="indicator">
+            <MdOutlineShoppingCart size={26} />
+            {cartCount > 0 && (
+              <span className="badge badge-secondary badge-sm indicator-item font-bold">
+                {cartCount}
+              </span>
+            )}
+          </div>
+        </button>
 
+        {/* User menu */}
         <div>
           {user ? (
             <div className="dropdown dropdown-end">
-              {/**Avatar shown when logged in*/}
               <div
                 tabIndex={0}
                 role="button"
-                className="btn btn-ghost btn-circle avatar"
+                className="btn btn-ghost btn-circle avatar hover:ring-2 ring-primary transition-all"
               >
-                <div className=" rounded-full">
-                  <FaRegUserCircle size={25} />
+                <div className="rounded-full bg-linear-to-br from-primary to-secondary flex items-center justify-center">
+                  <FaRegUserCircle size={28} />
                 </div>
               </div>
               <ul
                 tabIndex={-1}
-                className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+                className="menu menu-compact dropdown-content bg-base-200 rounded-lg z-50 mt-3 w-56 p-3 shadow-xl"
               >
-                <Link to={"/my-bookings"}>
-                  <li>
-                    <button className="justify-between">
-                      My Bookings
-                      <span className="badge ml-10">
-                        <FaRegCalendarAlt size={20} />
-                      </span>
-                    </button>
-                  </li>
-                </Link>
-
-                <Link to={"/my-orders"}>
-                  <li>
-                    <button className="justify-between">
-                      My Orders
-                      <span className="badge ml-13">
-                        <LuPackage size={20} />
-                      </span>
-                    </button>
-                  </li>
-                </Link>
+                <li className="menu-title">
+                  <span className="text-primary font-bold">Account</span>
+                </li>
                 <li>
-                  <button className="justify-between" onClick={logOut}>
-                    Logout
-                    <span className="badge ">
-                      <MdLogout size={20} />
-                    </span>
+                  <Link to="/my-bookings" className="hover:bg-primary hover:text-primary-content transition-all rounded-lg py-2">
+                    📅 My Bookings
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/my-orders" className="hover:bg-primary hover:text-primary-content transition-all rounded-lg py-2">
+                    📦 My Orders
+                  </Link>
+                </li>
+                <li className="divider my-2"></li>
+                <li>
+                  <button 
+                    onClick={logOut}
+                    className="hover:bg-error hover:text-error-content transition-all rounded-lg py-2 font-semibold"
+                  >
+                    🚪 Logout
                   </button>
                 </li>
               </ul>
             </div>
           ) : (
             <button
-              className="btn btn-primary"
+              className="btn btn-primary gap-2 font-semibold hidden md:flex hover:shadow-lg transition-all"
               onClick={() => navigate("/login")}
             >
-              Login{/**Login button to show when not logged in*/}
+              🔐 Login
             </button>
           )}
         </div>

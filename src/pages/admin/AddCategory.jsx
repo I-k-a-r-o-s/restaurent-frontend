@@ -46,52 +46,102 @@ const AddCategory = () => {
     }
   };
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <fieldset className="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4">
-          <div className="card card-border bg-base-200 w-96">
-            <div className="card-body items-center justify-center">
-              <h2 className="card-title">
-                {file ? file.name : "Image Preview"}
-              </h2>
-              <label className="label">
-                {preview && <img src={preview} alt="preview" />}
-              </label>
-              <div className="card-actions justify-end">
-                {preview && (
-                  <button className="btn btn-primary mt-4">
-                    {loading ? (
-                      <span className="loading loading-spinner loading-xs"></span>
-                    ) : (
-                      "Add Category"
-                    )}
-                  </button>
+    <div className="min-h-screen bg-base-200 p-4">
+      <div className="max-w-4xl mx-auto">
+        {/* Header */}
+        <div className="mb-8 flex items-center gap-3">
+          <div className="text-5xl">🎯</div>
+          <div>
+            <h1 className="text-4xl font-bold bg-linear-to-r from-primary to-secondary bg-clip-text text-transparent">
+              Add New Category
+            </h1>
+            <p className="text-base-content/70 mt-1">Create a new food category for your menu organization</p>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {/* Form */}
+          <form onSubmit={handleSubmit} className="lg:col-span-2">
+            <div className="card bg-base-100 shadow-xl border-2 border-primary/20">
+              <div className="card-body gap-6">
+                {/* Category Name */}
+                <div className="form-control gap-2">
+                  <label className="label pt-0">
+                    <span className="label-text font-bold text-base flex items-center gap-2">
+                      🏷️ Category Name
+                    </span>
+                  </label>
+                  <input
+                    type="text"
+                    className="input input-bordered input-lg focus:input-primary focus:ring-2 focus:ring-primary/50"
+                    placeholder="e.g., Biryani, Curry, Desserts"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
+
+                {/* Image Upload */}
+                <div className="form-control gap-2">
+                  <label className="label pt-0">
+                    <span className="label-text font-bold text-base flex items-center gap-2">
+                      📸 Upload Category Image
+                    </span>
+                  </label>
+                  <input
+                    type="file"
+                    className="file-input file-input-bordered file-input-lg w-full focus:file-input-primary"
+                    id="fileUpload"
+                    onChange={handleFileChange}
+                    required
+                  />
+                  <p className="text-sm text-base-content/70">Recommended: Square image (500x500px)</p>
+                </div>
+
+                {/* Submit Button */}
+                <button
+                  type="submit"
+                  className="btn btn-primary btn-lg w-full gap-2 font-bold text-lg shadow-lg hover:shadow-xl transition-all mt-4"
+                  disabled={loading}
+                >
+                  {loading ? (
+                    <>
+                      <span className="loading loading-spinner"></span>
+                      Adding...
+                    </>
+                  ) : (
+                    <>➕ Add Category</>
+                  )}
+                </button>
+              </div>
+            </div>
+          </form>
+
+          {/* Preview */}
+          <div className="lg:col-span-1">
+            <div className="card bg-base-100 shadow-xl border-2 border-secondary/20 sticky top-24">
+              <div className="card-body items-center text-center">
+                <h2 className="card-title text-2xl mb-4">📸 Preview</h2>
+                {preview ? (
+                  <>
+                    <img src={preview} alt="preview" className="rounded-lg w-full mb-4 border-2 border-secondary object-cover h-40" />
+                    <div className="text-sm text-base-content/70">
+                      <p className="font-bold mb-2">✅ {formData.name || "Category Name"}</p>
+                      <p className="text-xs badge badge-secondary">{file?.name}</p>
+                    </div>
+                  </>
+                ) : (
+                  <div className="text-center py-12">
+                    <p className="text-6xl mb-2">🎯</p>
+                    <p className="text-base-content/70">Upload an image to see preview</p>
+                  </div>
                 )}
               </div>
             </div>
           </div>
-
-          <label className="label">Category Name</label>
-          <input
-            type="text"
-            className="input"
-            placeholder="Enter Category Name"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            required
-          />
-
-          <label className="label">Pick an image</label>
-          <input
-            type="file"
-            className="file-input"
-            id="fileUpload"
-            onChange={handleFileChange}
-            required
-          />
-        </fieldset>
-      </form>
+        </div>
+      </div>
     </div>
   );
 };

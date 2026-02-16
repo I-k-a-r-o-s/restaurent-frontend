@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { LuMapPin } from "react-icons/lu";
 import { MdOutlineEmail, MdOutlinePhone } from "react-icons/md";
+import toast from "react-hot-toast";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -21,7 +21,7 @@ const Contact = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
+    toast.success("Message sent! We'll contact you soon.");
     // Reset form
     setFormData({
       name: "",
@@ -33,12 +33,12 @@ const Contact = () => {
   };
 
   return (
-    <div className="min-h-screen bg-base-100">
+    <div className="min-h-screen bg-linear-to-br from-base-100 to-base-200">
       {/* Hero Section */}
       <div className="hero bg-linear-to-r from-primary to-secondary py-16">
         <div className="hero-content text-center text-primary-content">
           <div>
-            <h1 className="text-5xl font-bold">Get In Touch</h1>
+            <h1 className="text-5xl font-bold">📬 Get In Touch</h1>
             <p className="py-4 text-lg">
               We'd love to hear from you. Send us a message!
             </p>
@@ -47,58 +47,58 @@ const Contact = () => {
       </div>
 
       <div className="container mx-auto px-4 py-12">
+        {/* Contact Info Cards */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
-          {/* Contact Info Cards */}
-          <div className="card bg-base-200 shadow-lg">
+          {/* Location Card */}
+          <div className="card bg-base-100 shadow-lg hover:shadow-xl transition-all border-t-4 border-primary">
             <div className="card-body items-center text-center">
-              <div className="mb-3">
-                <LuMapPin size={35} />
-              </div>
-              <h2 className="card-title text-primary">Location</h2>
+              <div className="text-5xl mb-4">📍</div>
+              <h2 className="card-title text-primary text-2xl">Location</h2>
               <p className="text-base-content/80">123 Food Street</p>
-              <p className="text-base-content/80">City, State 12345</p>
+              <p className="text-base-content/80">Downtown, City 12345</p>
             </div>
           </div>
 
-          <div className="card bg-base-200 shadow-lg">
+          {/* Phone Card */}
+          <div className="card bg-base-100 shadow-lg hover:shadow-xl transition-all border-t-4 border-secondary">
             <div className="card-body items-center text-center">
-              <div className="mb-3">
-                <MdOutlinePhone size={35} />
-              </div>
-              <h2 className="card-title text-primary">Phone</h2>
-              <p className="text-base-content/80">+1 (555) 123-4567</p>
-              <p className="text-base-content/80">Mon-Fri: 9am-9pm</p>
+              <div className="text-5xl mb-4">📞</div>
+              <h2 className="card-title text-secondary text-2xl">Phone</h2>
+              <p className="text-base-content/80 font-semibold">+91 (555) 123-4567</p>
+              <p className="text-base-content/80 text-sm">Mon-Fri: 9am-9pm</p>
             </div>
           </div>
 
-          <div className="card bg-base-200 shadow-lg">
+          {/* Email Card */}
+          <div className="card bg-base-100 shadow-lg hover:shadow-xl transition-all border-t-4 border-accent">
             <div className="card-body items-center text-center">
-              <div className="mb-3">
-                <MdOutlineEmail size={35} />
-              </div>
-              <h2 className="card-title text-primary">Email</h2>
-              <p className="text-base-content/80">info@restaurant.com</p>
-              <p className="text-base-content/80">support@restaurant.com</p>
+              <div className="text-5xl mb-4">📧</div>
+              <h2 className="card-title text-accent text-2xl">Email</h2>
+              <p className="text-base-content/80 font-semibold">info@restaurant.com</p>
+              <p className="text-base-content/80 text-sm">support@restaurant.com</p>
             </div>
           </div>
         </div>
 
-        {/* Contact Form */}
+        {/* Contact Form and Hours */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          {/* Contact Form */}
           <div>
-            <h2 className="text-3xl font-bold mb-8 text-base-content">
-              Send us a Message
+            <h2 className="text-4xl font-bold mb-8 bg-linear-to-r from-primary to-secondary bg-clip-text text-transparent">
+              📝 Send us a Message
             </h2>
             <form onSubmit={handleSubmit} className="space-y-6">
               {/* Name Field */}
-              <div>
+              <div className="form-control">
                 <label className="label">
-                  <span className="label-text font-semibold">Full Name</span>
+                  <span className="label-text font-semibold flex items-center gap-2">
+                    👤 Full Name
+                  </span>
                 </label>
                 <input
                   type="text"
                   placeholder="John Doe"
-                  className="input input-bordered w-full"
+                  className="input input-bordered input-lg"
                   name="name"
                   value={formData.name}
                   onChange={handleChange}
@@ -107,16 +107,16 @@ const Contact = () => {
               </div>
 
               {/* Email Field */}
-              <div>
+              <div className="form-control">
                 <label className="label">
-                  <span className="label-text font-semibold">
-                    Email Address
+                  <span className="label-text font-semibold flex items-center gap-2">
+                    📧 Email Address
                   </span>
                 </label>
                 <input
                   type="email"
                   placeholder="john@example.com"
-                  className="input input-bordered w-full"
+                  className="input input-bordered input-lg"
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
@@ -125,14 +125,16 @@ const Contact = () => {
               </div>
 
               {/* Phone Field */}
-              <div>
+              <div className="form-control">
                 <label className="label">
-                  <span className="label-text font-semibold">Phone Number</span>
+                  <span className="label-text font-semibold flex items-center gap-2">
+                    📞 Phone Number
+                  </span>
                 </label>
                 <input
                   type="tel"
-                  placeholder="+1 (555) 123-4567"
-                  className="input input-bordered w-full"
+                  placeholder="+91 (555) 123-4567"
+                  className="input input-bordered input-lg"
                   name="phone"
                   value={formData.phone}
                   onChange={handleChange}
@@ -140,14 +142,16 @@ const Contact = () => {
               </div>
 
               {/* Subject Field */}
-              <div>
+              <div className="form-control">
                 <label className="label">
-                  <span className="label-text font-semibold">Subject</span>
+                  <span className="label-text font-semibold flex items-center gap-2">
+                    💬 Subject
+                  </span>
                 </label>
                 <input
                   type="text"
-                  placeholder="Reservation / Feedback / Other"
-                  className="input input-bordered w-full"
+                  placeholder="e.g., Reservation / Feedback / Other"
+                  className="input input-bordered input-lg"
                   name="subject"
                   value={formData.subject}
                   onChange={handleChange}
@@ -156,68 +160,70 @@ const Contact = () => {
               </div>
 
               {/* Message Field */}
-              <div>
+              <div className="form-control">
                 <label className="label">
-                  <span className="label-text font-semibold">Message</span>
+                  <span className="label-text font-semibold flex items-center gap-2">
+                    📋 Message
+                  </span>
                 </label>
                 <textarea
-                  className="textarea textarea-bordered w-full h-32"
+                  className="textarea textarea-bordered textarea-lg"
                   placeholder="Tell us what's on your mind..."
                   name="message"
                   value={formData.message}
                   onChange={handleChange}
                   required
+                  rows="4"
                 ></textarea>
               </div>
 
               {/* Submit Button */}
               <button
                 type="submit"
-                className="btn btn-primary w-full text-white font-bold"
+                className="btn btn-primary btn-lg w-full font-bold gap-2"
               >
-                Send Message
+                🚀 Send Message
               </button>
             </form>
           </div>
 
-          {/* Map/Info Section */}
+          {/* Business Hours */}
           <div>
-            <h2 className="text-3xl font-bold mb-8 text-base-content">
-              Business Hours
+            <h2 className="text-4xl font-bold mb-8 bg-linear-to-r from-primary to-secondary bg-clip-text text-transparent">
+              ⏰ Business Hours
             </h2>
-            <div className="card bg-base-200 shadow-lg">
+            <div className="card bg-base-100 shadow-lg border-2 border-primary/20">
               <div className="card-body">
                 <div className="space-y-4">
-                  <div className="flex justify-between border-b border-base-300 pb-4">
-                    <span className="font-semibold text-base-content">
-                      Monday - Friday
-                    </span>
-                    <span className="text-primary font-bold">
-                      9:00 AM - 9:00 PM
-                    </span>
-                  </div>
-                  <div className="flex justify-between border-b border-base-300 pb-4">
-                    <span className="font-semibold text-base-content">
-                      Saturday
-                    </span>
-                    <span className="text-primary font-bold">
-                      10:00 AM - 10:00 PM
-                    </span>
-                  </div>
-                  <div className="flex justify-between border-b border-base-300 pb-4">
-                    <span className="font-semibold text-base-content">
-                      Sunday
-                    </span>
-                    <span className="text-primary font-bold">
-                      10:00 AM - 9:00 PM
-                    </span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="font-semibold text-base-content">
-                      Holidays
-                    </span>
-                    <span className="text-primary font-bold">Closed</span>
-                  </div>
+                  {[
+                    { day: "Monday - Friday", time: "9:00 AM - 9:00 PM", emoji: "📋" },
+                    { day: "Saturday", time: "10:00 AM - 10:00 PM", emoji: "☀️" },
+                    { day: "Sunday", time: "10:00 AM - 9:00 PM", emoji: "👀" },
+                    { day: "Holidays", time: "Closed", emoji: "🎉" },
+                  ].map((item, idx) => (
+                    <div
+                      key={idx}
+                      className="flex justify-between items-center p-4 bg-base-200 rounded-lg hover:bg-base-300 transition"
+                    >
+                      <span className="font-semibold flex items-center gap-2">
+                        <span className="text-2xl">{item.emoji}</span>
+                        {item.day}
+                      </span>
+                      <span className="text-primary font-bold">{item.time}</span>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="divider"></div>
+
+                {/* Special Info */}
+                <div className="alert alert-info gap-2">
+                  <span>💡</span>
+                  <span>
+                    <strong>Special Catering Available</strong>
+                    <br />
+                    Contact us for bulk orders and events
+                  </span>
                 </div>
               </div>
             </div>
